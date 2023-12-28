@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cupcake API</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Cupcake API</h1>
+    <div id="cupcake-list"></div>
+
+    <script>
+        // Fetch all cupcakes from the API
+        fetch('/api/cupcakes')
+            .then(response => response.json())
+            .then(data => {
+                const cupcakeList = document.getElementById('cupcake-list');
+                data.forEach(cupcake => {
+                    const cupcakeDiv = document.createElement('div');
+                    cupcakeDiv.classList.add('cupcake');
+                    cupcakeDiv.innerHTML = `
+                        <img src="${cupcake.image}" alt="${cupcake.flavor} Cupcake">
+                        <h2>${cupcake.flavor}</h2>
+                        <p>Size: ${cupcake.size}</p>
+                        <p>Rating: ${cupcake.rating}</p>
+                    `;
+                    cupcakeList.appendChild(cupcakeDiv);
+                });
+            });
+    </script>
+</body>
+</html>
